@@ -83,3 +83,6 @@ en la bbdd hasta que no se invoque explícitamente `record.save()`.
 previamente filtrado en función de la condición establecida.
 - `Model.objects.order_by('<->field_to_order')`: Obtiene los registros ordenados por el campo o campos indicados.
 - `object.delete()`: Elimina el registro.
+
+
+![Alt text](/Users/sergio/Documents/django/django_flow.jpg?raw=true "Django flow")
