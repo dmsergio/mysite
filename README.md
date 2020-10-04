@@ -85,4 +85,4 @@ previamente filtrado en función de la condición establecida.
 - `object.delete()`: Elimina el registro.
 
 
-![Alt text](/Users/sergio/Documents/django/django_flow.jpg?raw=true "Django flow")
+![Django flow](/Users/sergio/Projects/django/mysite/images/django_flow.jpg?raw=true "Django flow")
