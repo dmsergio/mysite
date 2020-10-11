@@ -86,3 +86,21 @@ previamente filtrado en función de la condición establecida.
 
 
 ![Django flow](./images/django_flow.jpg?raw=true "Django flow")
+
+
+#### Enviar emails con Django
+
+Para poder enviar emails con Django, previamente hay que configurar el SMTP en el fichero `settings.py`. A continuación
+se muestran las variables a definir:
+
+- __EMAIL_HOST__: SMTP host.
+- __EMAIL_PORT__: puerto SMTP. Por defecto es 25.
+- __EMAIL_HOST_USER__: nombre de usuario para el servidor SMTP.
+- __EMAIL_HOST_PASSWORD__: contraseña del servidor SMTP.
+- __EMAIL_USE_TLS__: para usar una conexión segura TLS.
+- __EMAIL_USE_SSL__: para usar de manera implícita una conexión segura SSL.
+
+Es posible realizar pruebas sin la necesidad de tener un servidor SMTP. Usando la siguiente variable Django escribirá
+los emails en la consola:
+
+- `EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'`
