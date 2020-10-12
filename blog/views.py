@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, render
@@ -42,7 +43,6 @@ def post_list(request, tag_slug=None):
         context=context
     )
 
-
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(
         Post,
@@ -64,6 +64,7 @@ def post_detail(request, year, month, day, post):
     else:
         comment_form = CommentForm()
 
+    similar_posts = _get_similar_posts(post)
     return render(
         request=request,
         template_name='blog/post/detail.html',
@@ -72,8 +73,18 @@ def post_detail(request, year, month, day, post):
             'comments': comments,
             'new_comment': new_comment,
             'comment_form': comment_form,
+            'similar_posts': similar_posts,
         }
     )
+
+def _get_similar_posts(post):
+    # post_tags_ids = post.tags.values_list('id', flat=True)
+    # similar_posts = Post.published.filter(tags__in=post_tags_ids)
+    # similar_posts = similar_posts.exclude(id=post.id)
+    # similar_posts = similar_posts.annotate(same_tags=Count('tags'))
+    # similar_posts = similar_posts.order_by('-same_tags', '-publish')[:4]
+    similar_posts = post.tags.similar_objects()
+    return similar_posts
 
 def post_share(request, post_id):
     post = get_object_or_404(Post, id=post_id, status='published')
