@@ -104,3 +104,23 @@ Es posible realizar pruebas sin la necesidad de tener un servidor SMTP. Usando l
 los emails en la consola:
 
 - `EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'`
+
+#### Definición de 'tags' propios para usarlos en los templates
+
+Es necesario declarar una instancia de la clase `django.template.Library`, de esta se registra el teg personalizado
+para poder ser usado.
+
+Existen dos tipos de tags personalizados:
+
+- __simple_tag__: Proceso los datos y devuelve un string.
+- __inclusion_tag__: Procesa los datos y devuelve un template renderizado.
+
+Para poder usar el tag creado en el template deseado, es necesario previamente carga el fichero python con el tag
+creado, y posteriormente usar el tag con el nombre definido. Suponiendo que en el fichero `custom_tags.py` se ha
+creado el tag `total_posts`, la forma de usarlo en el template sería tal y como se muestra a continuación:
+
+```
+{% load custom_tags %}
+
+{% total_posts %}
+```
