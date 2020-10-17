@@ -124,3 +124,25 @@ creado el tag `total_posts`, la forma de usarlo en el template sería tal y como
 
 {% total_posts %}
 ```
+
+### Agragar un 'sitemap'
+
+#### Instalación
+
+Es necesario crear un nuevo ID del sitemap, además de agregar a la variable `INSTALLED_APPS` del fichero `settings.py`
+lo siguiente:
+
+```
+SITE_ID = 1
+
+INSTALLED_APPS = [
+    # ...
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+]
+```
+
+El resto configuración necesario para crear el sitemap se puede ver en los siguientes ficheros:
+
+- [sitemaps.py](./blog/sitemaps.py).
+- [urls.py](./mysite/urls.py).
