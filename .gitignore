@@ -4,5 +4,4 @@ Dockerfile
 docker-compose.yml
 env_template
 make_project.sh
-requirements.txt
 *.pyc
