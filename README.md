@@ -1,11 +1,11 @@
 # Proyecto para probar Django
 
-#### Instalación
+### Instalación
 
 - Las pruebas se van a realizar sobre Docker. Un contenedor con el proyecto de Django, y otro almacenando la bbdd,
 que en este caso será PostgreSQL. Ver <https://github.com/dmsergio/django_postgresql> para más info.
 
-#### Creando la primera app dentro del proyecto: Blog
+### Creando la primera app dentro del proyecto: Blog
 
 Situado en la raíz del proyecto, __mysite__ en este caso, aplicar el siguiente comando para crear la app __blog__.
 
@@ -30,7 +30,7 @@ aplicación para que esté disponible. Para ello en el fichero `mysite/mysite/se
 __INSTALLED_APPS__ el siguiente valor: `blog.apps.BlogConfig`. El valor indicado se trata de la clase contenida en
 `mysite/blog/apps.py`.
 
-#### Crear y aplicar migraciones
+### Crear y aplicar migraciones
 
 Las migraciones son necesarias para reflejar los modelos implementados en la bbdd. Es decir, que cada vez que se creen
 nuevos modelos a la aplicación, o se agreguen/actualicen/eliminen campos en dichos modelos, hay que preparar una migración
@@ -47,7 +47,7 @@ la instrucción SQL generada a raíz del fichero de migración creado con la sen
 
 - ``python manage.py migrate``: Aplica la migración sobre la bbdd.
 
-#### Crear un sitio de administración para los nuevos modelos definidos
+### Crear un sitio de administración para los nuevos modelos definidos
 
 Se puede acceder al sitio de administración en <ip_server_django:puerto/admin>.
 
@@ -69,7 +69,7 @@ admin.site.register(<nombre_del_modelo>)
 Con ello se podrá administrar el modelo deseado en el sitio de administración.
 
 
-#### Django API: Shell
+### Django API: Shell
 
 - `python manage.py shell`: Ejecuta la shell de Django.
 - `Model.objects.all()`: Obtiene todos los registros del modelo.
@@ -88,7 +88,7 @@ previamente filtrado en función de la condición establecida.
 ![Django flow](./images/django_flow.jpg?raw=true "Django flow")
 
 
-#### Enviar emails con Django
+### Enviar emails con Django
 
 Para poder enviar emails con Django, previamente hay que configurar el SMTP en el fichero `settings.py`. A continuación
 se muestran las variables a definir:
@@ -105,7 +105,7 @@ los emails en la consola:
 
 - `EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'`
 
-#### Definición de 'tags' propios para usarlos en los templates
+### Definición de 'tags' propios para usarlos en los templates
 
 Es necesario declarar una instancia de la clase `django.template.Library`, de esta se registra el teg personalizado
 para poder ser usado.
