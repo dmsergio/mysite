@@ -1,4 +1,5 @@
 from django.db.models import Count
+from django.contrib.postgres.search import SearchVector
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, render
@@ -6,7 +7,7 @@ from django.views.generic import ListView
 from taggit.models import Tag
 
 from .models import Comment, Post
-from .form import CommentForm, EmailPostForm
+from .form import CommentForm, EmailPostForm, SearchForm
 
 
 # class PostListView(ListView):
@@ -111,4 +112,24 @@ def post_share(request, post_id):
             'post': post,
             'form': form,
             'sent': sent,
+        })
+
+def post_search(request):
+    form = SearchForm()
+    query = None
+    results = []
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Post.published.annotate(
+                search=SearchVector('title', 'body')
+            ).filter(search=query)
+    return render(
+        request=request,
+        template_name='blog/post/search.html',
+        context={
+            'form': form,
+            'query': query,
+            'results': results,
         })
