@@ -1,5 +1,9 @@
 from django.db.models import Count
-from django.contrib.postgres.search import SearchVector
+from django.contrib.postgres.search import (
+    SearchQuery,
+    SearchRank,
+    SearchVector,
+)
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, render
@@ -115,21 +119,24 @@ def post_share(request, post_id):
         })
 
 def post_search(request):
-    form = SearchForm()
+    search_form = SearchForm()
     query = None
     results = []
     if 'query' in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            query = form.cleaned_data['query']
+        search_form = SearchForm(request.GET)
+        if search_form.is_valid():
+            query = search_form.cleaned_data['query']
+            search_vector = SearchVector('title', 'body')
+            search_query = SearchQuery(query)
             results = Post.published.annotate(
-                search=SearchVector('title', 'body')
-            ).filter(search=query)
+                search=search_vector,
+                rank=SearchRank(search_vector, search_query),
+            ).filter(search=search_query).order_by('-rank')
     return render(
         request=request,
         template_name='blog/post/search.html',
         context={
-            'form': form,
+            'form': search_form,
             'query': query,
             'results': results,
         })

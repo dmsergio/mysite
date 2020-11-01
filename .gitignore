@@ -5,3 +5,4 @@ docker-compose.yml
 env_template
 make_project.sh
 *.pyc
+*.code-workspace
